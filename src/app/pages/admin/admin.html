@@ -1,0 +1,172 @@
+<main class="admin-page">
+
+    <section class="admin-card">
+
+        <!-- HEADER -->
+
+        <div class="admin-header">
+
+            <div class="logo">
+                DabaX <span>Events</span>
+            </div>
+
+            <p>
+                Créateur de surprise anniversaire
+            </p>
+
+        </div>
+
+
+        <!-- NOM -->
+
+        <div class="form-group">
+
+            <label for="name">
+        Nom de la personne
+      </label>
+
+            <input id="name" type="text" [(ngModel)]="name" (input)="generateSlug()" placeholder="Ex : Fatou Diop">
+
+        </div>
+
+
+        <!-- ÂGE -->
+
+        <div class="form-group">
+
+            <label for="age">
+        Âge
+      </label>
+
+            <input id="age" type="number" min="1" max="120" [(ngModel)]="age" placeholder="Ex : 25">
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div class="form-group">
+
+            <label for="message">
+        Message d'anniversaire
+      </label>
+
+            <textarea id="message" [(ngModel)]="message" rows="5" placeholder="Écris ici le message qui apparaîtra sur la surprise..."></textarea>
+
+        </div>
+
+
+        <!-- SLUG -->
+
+        <div class="form-group">
+
+            <label for="slug">
+        Identifiant du lien
+      </label>
+
+            <div class="slug-input">
+
+                <span>
+          /#/birthday/
+        </span>
+
+                <input id="slug" type="text" [(ngModel)]="slug">
+
+            </div>
+
+            <small>
+        Tu peux modifier cet identifiant si nécessaire.
+      </small>
+
+        </div>
+
+
+        <!-- BOUTON -->
+
+        <button class="generate-button" type="button" (click)="generateEvent()">
+
+      ✨ Créer l'événement
+
+    </button>
+
+
+        <!-- RESULTAT -->
+
+        @if (eventCreated) {
+
+        <div class="result">
+
+            <p class="result-title">
+                🎉 Événement prêt !
+            </p>
+
+
+            <!-- LIEN -->
+
+            <div class="link-box">
+
+                {{ generatedLink }}
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="result-actions">
+
+                <button class="copy-button" type="button" (click)="copyLink()">
+
+            📋 Copier
+
+          </button>
+
+
+                <button class="preview-button" type="button" (click)="openPreview()">
+
+            👀 Voir
+
+          </button>
+
+            </div>
+
+
+            @if (copied) {
+
+            <p class="copied">
+                ✓ Lien copié !
+            </p>
+
+            }
+
+
+            <!-- JSON -->
+
+            <div class="json-section">
+
+                <p class="json-title">
+                    📄 Fichier JSON
+                </p>
+
+                <p class="json-file">
+                    {{ slug }}.json
+                </p>
+
+
+                <pre>{{ generatedJson }}</pre>
+
+
+                <button class="download-button" type="button" (click)="downloadJson()">
+
+            ⬇ Télécharger le JSON
+
+          </button>
+
+            </div>
+
+        </div>
+
+        }
+
+    </section>
+
+</main>

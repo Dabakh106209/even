@@ -1,0 +1,187 @@
+<main class="birthday-page">
+
+    @if ( !isLoading() && !notFound() && birthday()?.music ) {
+
+    <button class="music-button" type="button" (click)="toggleMusic()" [attr.aria-label]="
+      isMusicPlaying()
+        ? 'Mettre la musique en pause'
+        : 'Jouer la musique'
+    ">
+
+    {{ isMusicPlaying() ? '❚❚' : '♫' }}
+
+  </button>
+
+    <audio #birthdayAudio [src]="birthday()!.music" loop preload="auto"></audio> }
+    <!-- ========================= -->
+    <!-- CHARGEMENT                -->
+    <!-- ========================= -->
+
+    @if (isLoading()) {
+
+    <section class="loading-screen">
+
+        <div class="loading-icon">
+            🎁
+        </div>
+
+        <p>
+            Préparation de votre surprise...
+        </p>
+
+    </section>
+
+    }
+
+
+    <!-- ========================= -->
+    <!-- ÉVÉNEMENT INTROUVABLE     -->
+    <!-- ========================= -->
+
+    @if (!isLoading() && notFound()) {
+
+    <section class="error-screen">
+
+        <div class="error-icon">
+            😕
+        </div>
+
+        <h1>
+            Cette surprise n'existe pas
+        </h1>
+
+        <p>
+            Le lien que vous avez utilisé semble incorrect ou cette surprise n'est plus disponible.
+        </p>
+
+    </section>
+
+    }
+
+
+    <!-- ========================= -->
+    <!-- SURPRISE FERMÉE           -->
+    <!-- ========================= -->
+
+    @if ( !isLoading() && !notFound() && birthday() && !isOpened() ) {
+
+    <section class="welcome-screen">
+
+        <div class="background-glow glow-1"></div>
+        <div class="background-glow glow-2"></div>
+
+        <!-- Étincelles décoratives -->
+        <div class="sparkle sparkle-1">✨</div>
+        <div class="sparkle sparkle-2">✦</div>
+        <div class="sparkle sparkle-3">✨</div>
+        <div class="sparkle sparkle-4">✦</div>
+        <div class="sparkle sparkle-5">✨</div>
+        <div class="sparkle sparkle-6">✦</div>
+
+        <div class="welcome-content">
+
+            <div class="gift-icon">
+                🎁
+            </div>
+
+            <p class="eyebrow">
+                UNE PETITE SURPRISE POUR TOI
+            </p>
+
+            <h1>
+                Quelqu'un a préparé
+                <span>quelque chose de spécial</span> pour toi.
+            </h1>
+
+            <p class="intro">
+                Prends quelques secondes... Une jolie surprise t'attend.
+            </p>
+
+            <button class="open-button" type="button" (click)="openSurprise()">
+          <span>✨</span>
+
+          Ouvrir ma surprise
+
+          <span>→</span>
+        </button>
+
+        </div>
+
+    </section>
+
+    }
+
+
+    <!-- ========================= -->
+    <!-- SURPRISE OUVERTE          -->
+    <!-- ========================= -->
+
+    @if ( !isLoading() && !notFound() && birthday() && isOpened() ) {
+
+    <section class="birthday-screen">
+
+        <!-- Ballons flottants -->
+        <div class="balloon balloon-1">🎈</div>
+        <div class="balloon balloon-2">🎈</div>
+        <div class="balloon balloon-3">🎈</div>
+        <div class="balloon balloon-4">🎈</div>
+
+        <!-- Confettis -->
+        <div class="confetti confetti-1">🎉</div>
+        <div class="confetti confetti-2">✨</div>
+        <div class="confetti confetti-3">🎊</div>
+        <div class="confetti confetti-4">✨</div>
+        <div class="confetti confetti-5">💫</div>
+        <div class="confetti confetti-6">⭐</div>
+        <div class="confetti confetti-7">🎉</div>
+        <div class="confetti confetti-8">🎊</div>
+
+        <div class="birthday-content">
+
+            <p class="birthday-label">
+                AUJOURD'HUI EST UN JOUR SPÉCIAL
+            </p>
+
+            <h2>
+                🎉 Joyeux anniversaire 🎉
+            </h2>
+
+            @if (birthday()!.photo) {
+
+            <div class="main-photo">
+
+                <img [src]="birthday()!.photo" [alt]="'Photo de ' + birthday()!.name">
+
+            </div>
+
+            }
+
+            <h3>
+                {{ birthday()!.name }}
+                <span>❤️</span>
+            </h3>
+
+            @if (birthday()!.age) {
+
+            <div class="age">
+                {{ birthday()!.age }}
+                <span>ans</span>
+            </div>
+
+            }
+
+            <p class="birthday-message">
+                {{ birthday()!.message }}
+            </p>
+
+            <div class="cake">
+                🎂
+            </div>
+
+        </div>
+
+    </section>
+
+    }
+
+</main>
